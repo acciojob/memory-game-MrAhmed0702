@@ -66,37 +66,39 @@ const App = () => {
   // However, the logic above is fine.
 
   return (
-    <div className="game-container">
-      <div
-        className="welcome-screen"
-        style={{ display: gameStarted ? "none" : "block" }}
-      >
+  <div className="game-container">
+
+    {/* Level selector MUST always stay visible (Cypress requirement) */}
+    <LevelSelector level={level} setLevel={setLevel} />
+
+    {!gameStarted ? (
+      <div className="welcome-screen">
         <h1>Welcome!</h1>
-        <LevelSelector level={level} setLevel={setLevel} />
         <button onClick={startNewGame}>Start</button>
       </div>
-
-      <div
-        className="game-screen"
-        style={{ display: gameStarted ? "block" : "none" }}
-      >
+    ) : (
+      <div className="game-screen">
         <h1>GAMe YO</h1>
         <span>Mode: {level}</span>
         <h4>Tries: {tries}</h4>
+
         {gameOver && (
           <div className="game-over">
             <h3>ALL SOLVED!</h3>
             <button onClick={() => setGameStarted(false)}>New Game</button>
           </div>
         )}
+
         <GameBoard
           tiles={tiles}
           flippedTiles={flippedTiles}
           onTileClick={handleTileClick}
         />
       </div>
-    </div>
-  );
+    )}
+  </div>
+);
+
 };
 
 export default App;
