@@ -1,97 +1,91 @@
-import React, { useState, useEffect } from "react";
-import "../styles/App.css";
-import GameBoard from "./GameBoard";
-import LevelSelector from "./LevelSelector";
+import React, { useState } from "react";
+import LandingPage from "./LandingPage.js";
+import CellsContainer from "./CellsContainer.js";
 
-const App = () => {
-  const [level, setLevel] = useState("easy");
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export default function App() {
+  const [level, setLevel] = useState("");
   const [tiles, setTiles] = useState([]);
   const [tries, setTries] = useState(0);
   const [flippedTiles, setFlippedTiles] = useState([]);
-  const [solvedPairs, setSolvedPairs] = useState(0);
-  const [gameStarted, setGameStarted] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
+  const [start, setStart] = useState(false);
 
-  const levels = {
-    easy: { size: 8, pairs: 4 },
-    normal: { size: 16, pairs: 8 },
-    hard: { size: 32, pairs: 16 },
+  const pairsForLevel = (lvl) =>
+    lvl === "easy" ? 4 : lvl === "normal" ? 8 : 16;
+
+  const handleStart = () => {
+    setStart(true);
+    const pairs = pairsForLevel(level);
+    const newTiles = [];
+    for (let i = 1; i <= pairs; i++) newTiles.push(i, i);
+
+    const shuffled = shuffleArray(newTiles).map((v, idx) => ({
+      id: `${v}-${idx}`,
+      value: v,
+      matched: false,
+      flipped: false,
+    }));
+    setTiles(shuffled);
   };
 
-  const startNewGame = () => {
-    const numPairs = levels[level].pairs;
-    const tilesArray = [];
-    for (let i = 0; i < numPairs; i++) {
-      tilesArray.push(i);
-      tilesArray.push(i);
-    }
-    const shuffledTiles = tilesArray.sort(() => Math.random() - 0.5);
-    setTiles(shuffledTiles);
-    setTries(0);
-    setFlippedTiles([]);
-    setSolvedPairs(0);
-    setGameStarted(true);
-    setGameOver(false);
-  };
+  const handleTileClick = (id, value) => {
+    // 1️⃣ Ignore if tile already flipped or matched
+    const clickedTile = tiles.find((t) => t.id === id);
+    if (clickedTile.flipped || clickedTile.matched) return;
 
-  const handleTileClick = (index) => {
-    if (gameOver || flippedTiles.includes(index) || tiles[index] === null)
-      return;
+    // 2️⃣ Flip the clicked tile
+    const newTiles = tiles.map((tile) =>
+      tile.id === id ? { ...tile, flipped: true } : tile
+    );
 
-    if (flippedTiles.length < 2) {
-      const newFlipped = [...flippedTiles, index];
-      setFlippedTiles(newFlipped);
+    setTiles(newTiles);
 
-      if (newFlipped.length === 2) {
-        setTries(tries + 1);
-        const [first, second] = newFlipped;
-        if (tiles[first] === tiles[second]) {
-          setSolvedPairs((prev) => {
-            const newSolved = prev + 1;
-            if (newSolved === levels[level].pairs) {
-              setGameOver(true);
-            }
-            return newSolved;
-          });
-          setFlippedTiles([]);
-        } else {
-          setTimeout(() => setFlippedTiles([]), 1000);
-        }
+    // 3️⃣ Add to flippedTiles
+    const newFlipped = [...flippedTiles, { id, value }];
+    setFlippedTiles(newFlipped);
+
+    // 4️⃣ If two tiles flipped, check match
+    if (newFlipped.length === 2) {
+      setTries((prev) => prev + 1);
+
+      const [first, second] = newFlipped;
+      if (first.value === second.value) {
+        // ✅ Match found
+        const updatedTiles = newTiles.map((tile) =>
+          tile.value === first.value ? { ...tile, matched: true } : tile
+        );
+        setTiles(updatedTiles);
+        setFlippedTiles([]); // clear flipped
+      } else {
+        // ❌ No match → flip back after delay
+        const resetTiles = newTiles.map((tile) =>
+          tile.matched ? tile : { ...tile, flipped: false }
+        );
+        setTiles(resetTiles);
+        setFlippedTiles([]);
       }
     }
   };
 
-  // Check if game is solved based on solvedPairs is done in handleTileClick,
-  // but we can also check here if we want to be reactive.
-  // However, the logic above is fine.
-
   return (
-    <div className="game-container">
-      {!gameStarted ? (
-        <div className="welcome-screen">
-          <h1>Welcome!</h1>
-          <LevelSelector level={level} setLevel={setLevel} />
-          <button onClick={startNewGame}>Start</button>
-        </div>
+    <>
+      {start ? (
+        <CellsContainer
+          handleTileClick={handleTileClick}
+          tiles={tiles}
+          tries={tries}
+        />
       ) : (
-        <div className="game-screen">
-          <h1>GAmE YO</h1>
-          <h4>Tries: {tries}</h4>
-          {gameOver && (
-            <div className="game-over">
-              <h3>ALL SOLVED!</h3>
-              <button onClick={() => setGameStarted(false)}>New Game</button>
-            </div>
-          )}
-          <GameBoard
-            tiles={tiles}
-            flippedTiles={flippedTiles}
-            onTileClick={handleTileClick}
-          />
-        </div>
+        <LandingPage handleStart={handleStart} setLevel={setLevel} />
       )}
-    </div>
+    </>
   );
-};
-
-export default App;
+}
