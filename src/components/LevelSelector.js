@@ -12,7 +12,7 @@ const LevelSelector = ({ level, setLevel }) => {
           checked={level === "easy"}
           onChange={() => setLevel("easy")}
         />{" "}
-        Easy
+        <span>Easy</span>
       </label>
       <label>
         <input
@@ -23,7 +23,7 @@ const LevelSelector = ({ level, setLevel }) => {
           checked={level === "normal"}
           onChange={() => setLevel("normal")}
         />{" "}
-        Normal
+        <span>Normal</span>
       </label>
       <label>
         <input
@@ -34,7 +34,7 @@ const LevelSelector = ({ level, setLevel }) => {
           checked={level === "hard"}
           onChange={() => setLevel("hard")}
         />{" "}
-        Hard
+        <span>Hard</span>
       </label>
     </div>
   );
