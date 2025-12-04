@@ -66,39 +66,32 @@ const App = () => {
   // However, the logic above is fine.
 
   return (
-  <div className="game-container">
-
-    {/* Level selector MUST always stay visible (Cypress requirement) */}
-    <LevelSelector level={level} setLevel={setLevel} />
-
-    {!gameStarted ? (
-      <div className="welcome-screen">
-        <h1>Welcome!</h1>
-        <button onClick={startNewGame}>Start</button>
-      </div>
-    ) : (
-      <div className="game-screen">
-        <h1>GAMe YO</h1>
-        <span>Mode: {level}</span>
-        <h4>Tries: {tries}</h4>
-
-        {gameOver && (
-          <div className="game-over">
-            <h3>ALL SOLVED!</h3>
-            <button onClick={() => setGameStarted(false)}>New Game</button>
-          </div>
-        )}
-
-        <GameBoard
-          tiles={tiles}
-          flippedTiles={flippedTiles}
-          onTileClick={handleTileClick}
-        />
-      </div>
-    )}
-  </div>
-);
-
+    <div className="game-container">
+      {!gameStarted ? (
+        <div className="welcome-screen">
+          <h1>Welcome!</h1>
+          <LevelSelector level={level} setLevel={setLevel} />
+          <button onClick={startNewGame}>Start</button>
+        </div>
+      ) : (
+        <div className="game-screen">
+          <h1>GAmE YO</h1>
+          <h4>Tries: {tries}</h4>
+          {gameOver && (
+            <div className="game-over">
+              <h3>ALL SOLVED!</h3>
+              <button onClick={() => setGameStarted(false)}>New Game</button>
+            </div>
+          )}
+          <GameBoard
+            tiles={tiles}
+            flippedTiles={flippedTiles}
+            onTileClick={handleTileClick}
+          />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default App;
