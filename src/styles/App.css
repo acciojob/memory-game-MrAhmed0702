@@ -31,19 +31,19 @@
 
 .cells_container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
   gap: 10px;
   margin: 20px auto;
 }
 
 .tile {
-  width: 80px;
+  width: 60px;
   height: 80px;
   background-color: orange;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2em;
+  font-size: 1.5em;
   cursor: pointer;
   border-radius: 0; /* Images show square tiles */
   transition: transform 0.3s;
