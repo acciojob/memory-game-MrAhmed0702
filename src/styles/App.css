@@ -1,1 +1,48 @@
+/* App.css */
+.game-container {
+  text-align: center;
+  margin: 20px;
+  background-color: #1e2a47;
+  color: white;
+}
 
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.tile {
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.tile.flipped {
+  background-color: #c0c0c0;
+}
+
+.level-selector {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: darkblue;
+}
