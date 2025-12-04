@@ -3,6 +3,8 @@ import React from "react";
 const LevelSelector = ({ setLevel, level }) => {
   return (
     <div className="levels_container">
+      <h1>🎮 Memory Matching Game</h1>
+      <p>Select Difficulty:</p>
       <div>
         <label>
           <input
@@ -15,8 +17,7 @@ const LevelSelector = ({ setLevel, level }) => {
           />
           <span>Easy</span>
         </label>
-      </div>
-      <div>
+        <br />
         <label>
           <input
             type="radio"
@@ -28,8 +29,7 @@ const LevelSelector = ({ setLevel, level }) => {
           />
           <span>Normal</span>
         </label>
-      </div>
-      <div>
+        <br />
         <label>
           <input
             type="radio"
