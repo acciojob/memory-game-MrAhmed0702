@@ -20,8 +20,12 @@
   margin: 20px 0;
 }
 
-.levels_container label {
+.levels_container div {
+  display: inline-block;
   margin: 0 10px;
+}
+
+.levels_container label {
   font-size: 1.2em;
 }
 
