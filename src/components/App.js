@@ -76,7 +76,7 @@ const App = () => {
       ) : (
         <div className="game-screen">
           <h1>GAMe YO</h1>
-          <p>Tries: {tries}</p>
+          <h4>Tries: {tries}</h4>
           {gameOver && (
             <div className="game-over">
               <h3>ALL SOLVED!</h3>
