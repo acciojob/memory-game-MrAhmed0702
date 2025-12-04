@@ -1,9 +1,9 @@
-import React from 'react';
-import Tile from './Tile';
+import React from "react";
+import Tile from "./Tile";
 
 const GameBoard = ({ tiles, flippedTiles, onTileClick }) => {
   return (
-    <div className="game-board">
+    <div className="cells_container">
       {tiles.map((tile, index) => (
         <Tile
           key={index}

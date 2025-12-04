@@ -1,16 +1,34 @@
 /* App.css */
 .game-container {
   text-align: center;
-  margin: 20px;
-  background-color: #1e2a47;
-  color: white;
+  min-height: 100vh;
+  background-color: blue;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.game-board {
+.welcome-screen, .game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.levels_container {
+  margin: 20px 0;
+}
+
+.levels_container label {
+  margin: 0 10px;
+  font-size: 1.2em;
+}
+
+.cells_container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  max-width: 400px;
   margin: 20px auto;
 }
 
@@ -23,26 +41,36 @@
   align-items: center;
   font-size: 2em;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 0; /* Images show square tiles */
   transition: transform 0.3s;
 }
 
 .tile.flipped {
-  background-color: #c0c0c0;
-}
-
-.level-selector {
-  margin-bottom: 20px;
+  background-color: orange; /* Keep orange */
+  cursor: default;
 }
 
 button {
-  background-color: blue;
-  color: white;
-  padding: 10px 20px;
+  background-color: #f0f0f0;
+  color: black;
+  border: 1px solid black;
+  padding: 5px 15px;
   font-size: 1em;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 button:hover {
-  background-color: darkblue;
+  background-color: #e0e0e0;
 }
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
