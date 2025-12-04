@@ -1,0 +1,80 @@
+/* App.css */
+.game-container {
+  text-align: center;
+  min-height: 100vh;
+  background-color: blue;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-screen, .game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.levels_container {
+  margin: 20px 0;
+}
+
+.levels_container div {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.levels_container label {
+  font-size: 1.2em;
+}
+
+.cells_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.tile {
+  width: 60px;
+  height: 80px;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  cursor: pointer;
+  border-radius: 0; /* Images show square tiles */
+  transition: transform 0.3s;
+}
+
+.tile.flipped {
+  background-color: orange; /* Keep orange */
+  cursor: default;
+}
+
+button {
+  background-color: #f0f0f0;
+  color: black;
+  border: 1px solid black;
+  padding: 5px 15px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+p, h4 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+

@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function Tile({ value, flipped, onClick }) {
+const Tile = ({ value, index, isFlipped, onClick }) => {
   return (
-    <div className="tile" onClick={onClick}>
-      {flipped ? <span>{value}</span> : <span>❓</span>}
+    <div className={`tile ${isFlipped ? "flipped" : ""}`} onClick={onClick}>
+      {isFlipped ? value : ""}
     </div>
   );
-}
+};
+
+export default Tile;
