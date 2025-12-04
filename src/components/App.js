@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/App.css";
 import GameBoard from "./GameBoard";
-import LevelSelector from "./LevelSelector";
 
 const App = () => {
   const [level, setLevel] = useState("easy");
@@ -70,7 +69,47 @@ const App = () => {
       {!gameStarted ? (
         <div className="welcome-screen">
           <h1>Welcome!</h1>
-          <LevelSelector level={level} setLevel={setLevel} />
+          <div className="levels_container">
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  name="level"
+                  value="easy"
+                  id="easy"
+                  checked={level === "easy"}
+                  onChange={() => setLevel("easy")}
+                />{" "}
+                <span>Easy</span>
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  name="level"
+                  value="normal"
+                  id="normal"
+                  checked={level === "normal"}
+                  onChange={() => setLevel("normal")}
+                />{" "}
+                <span>Normal</span>
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  name="level"
+                  value="hard"
+                  id="hard"
+                  checked={level === "hard"}
+                  onChange={() => setLevel("hard")}
+                />{" "}
+                <span>Hard</span>
+              </label>
+            </div>
+          </div>
           <button onClick={startNewGame}>Start</button>
         </div>
       ) : (
